@@ -1,3 +1,4 @@
+```text
 dotfiles/
 ├── niri/
 │   ├── config.kdl
@@ -13,6 +14,6 @@ dotfiles/
 ├── alacritty/
 │   ├── alacritty.toml
 │   └── dank-theme.toml
-├── nvim/
-│   ├── init.lua
-   
+└── nvim/
+    └── init.lua
+```
