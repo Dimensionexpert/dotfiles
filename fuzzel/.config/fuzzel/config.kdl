@@ -1,0 +1,445 @@
+// ╔═══════════════════════════════════════════════════════════════════════════╗
+// ║                          NIRI CONFIGURATION FILE                          ║
+// ║                     Scrollable Tiling Wayland Compositor                  ║
+// ╚═══════════════════════════════════════════════════════════════════════════╝
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  INPUT DEVICES CONFIGURATION
+// ═══════════════════════════════════════════════════════════════════════════
+
+input {
+    // Keyboard Settings
+    keyboard {
+        xkb { }
+        numlock  // Enable numlock by default
+    }
+
+    // Touchpad Settings
+    touchpad {
+        tap              // Enable tap-to-click
+        natural-scroll   // Reverse scrolling direction (like macOS)
+    }
+
+    // Mouse Settings
+    mouse { }
+    
+    // Trackpoint Settings (ThinkPad-style pointer)
+    trackpoint { }
+
+    // Focus Behavior
+    warp-mouse-to-focus                      // Move cursor when focus changes
+    focus-follows-mouse max-scroll-amount="0%"  // Focus window under cursor
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  DISPLAY OUTPUT CONFIGURATION
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Built-in Laptop Display (eDP-1)
+output "eDP-1" {
+    mode "2880x1800@90.00"  // High-res display at 90Hz
+    scale 1.7               // HiDPI scaling for readability
+    transform "normal"      // No rotation
+    position x=1280 y=0     // Position relative to other displays
+}
+
+// External Monitor (HDMI-A-1)
+output "HDMI-A-1" {
+    mode "1440x900@59.887"  // Standard HD resolution
+    scale 1                 // No scaling
+    transform "normal"      // No rotation
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  LAYOUT & APPEARANCE
+// ═══════════════════════════════════════════════════════════════════════════
+
+layout {
+    gaps 8  // Spacing between windows (in pixels)
+    
+    center-focused-column "never"  // Keep columns left-aligned
+
+    // Preset Column Width Options (cycle with Mod+R)
+    preset-column-widths {
+        proportion 0.33333  // One-third width
+        proportion 0.5      // Half width
+        proportion 0.66667  // Two-thirds width
+    }
+
+    // Default Column Width for New Windows
+    default-column-width {
+        proportion 0.5;     // Start at half screen width
+    }
+
+    // Focus Ring (visual indicator of active window)
+    focus-ring {
+        off                         // Currently disabled
+        width 2                     // Border thickness when enabled
+        active-color "#7fc8ff"      // Light blue for active window
+        inactive-color "#505050"    // Gray for inactive windows
+    }
+
+    // Window Borders
+    border {
+        off                         // Currently disabled
+        width 2                     // Border thickness when enabled
+        active-color "#ffff"        // White for active window
+        inactive-color "#0000"      // Transparent for inactive
+        urgent-color "#9b0000"      // Dark red for urgent windows
+    }
+
+    // Window Drop Shadows
+    shadow {
+        softness 30             // Blur radius for soft edges
+        spread 5                // Shadow size expansion
+        offset x=0 y=5          // Shadow position (5px down)
+        color "#0007"           // Black with transparency
+    }
+
+    struts { }  // Reserved space for panels/bars
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  HOTKEY OVERLAY
+// ═══════════════════════════════════════════════════════════════════════════
+
+hotkey-overlay { }  // On-screen keyboard shortcut reference
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  SCREENSHOT CONFIGURATION
+// ═══════════════════════════════════════════════════════════════════════════
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  ANIMATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+animations { }  // Window transition animations
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  WINDOW RULES (per-application behavior)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Terminal (WezTerm) - Use default column width
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width { }
+}
+
+// Firefox Picture-in-Picture - Float above other windows
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  KEYBINDINGS
+// ═══════════════════════════════════════════════════════════════════════════
+
+binds {
+    // ─────────────────────────────────────────────────────────────────────
+    //  HELP & INFORMATION
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Shift+Slash { show-hotkey-overlay; }  // Show keyboard shortcuts
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  APPLICATION LAUNCHERS
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Return hotkey-overlay-title="Open a Terminal: alacritty " {
+        spawn "alacritty";
+    }
+
+    Mod+space hotkey-overlay-title="Run an Application: fuzzel" {
+        spawn "fuzzel";  // Application launcher
+    }
+
+    Mod+B hotkey-overlay-title="launch Brave" {
+        spawn "brave-browser";
+    }
+
+    Mod+O hotkey-overlay-title="Open Obsidian" {
+        spawn "md.obsidian.Obsidian";
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MEDIA CONTROLS (work even when screen is locked)
+    // ─────────────────────────────────────────────────────────────────────
+    
+    // Volume Controls
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
+    }
+
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+    }
+
+    XF86AudioMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+    }
+
+    // Microphone Mute
+    XF86AudioMicMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+    }
+
+    // Brightness Controls
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn "brightnessctl" "--class=backlight" "set" "+10%";
+    }
+
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn "brightnessctl" "--class=backlight" "set" "10%-";
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WINDOW MANAGEMENT
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+tab repeat=false { toggle-overview; }  // Show all windows overview
+    Mod+Q repeat=false { close-window; }       // Close focused window
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  NAVIGATION - Arrow Keys
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Left  { focus-column-left; }   // Move focus left
+    Mod+Down  { focus-window-down; }   // Move focus down
+    Mod+Up    { focus-window-up; }     // Move focus up
+    Mod+Right { focus-column-right; }  // Move focus right
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  NAVIGATION - Vim Keys (H/J/K/L)
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+H { focus-column-left; }   // Move focus left
+    Mod+J { focus-window-down; }   // Move focus down
+    Mod+K { focus-window-up; }     // Move focus up
+    Mod+L { focus-column-right; }  // Move focus right
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MOVE WINDOWS - Arrow Keys
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Ctrl+Left  { move-column-left; }   // Move window left
+    Mod+Ctrl+Down  { move-window-down; }   // Move window down
+    Mod+Ctrl+Up    { move-window-up; }     // Move window up
+    Mod+Ctrl+Right { move-column-right; }  // Move window right
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MOVE WINDOWS - Vim Keys
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Ctrl+H { move-column-left; }   // Move window left
+    Mod+Ctrl+J { move-window-down; }   // Move window down
+    Mod+Ctrl+K { move-window-up; }     // Move window up
+    Mod+Ctrl+L { move-column-right; }  // Move window right
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  JUMP TO EDGES
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Home { focus-column-first; }  // Jump to first column
+    Mod+End  { focus-column-last; }   // Jump to last column
+
+    Mod+Ctrl+Home { move-column-to-first; }  // Move window to first position
+    Mod+Ctrl+End  { move-column-to-last; }   // Move window to last position
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MULTI-MONITOR - Focus (Arrow Keys)
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Shift+Left  { focus-monitor-left; }
+    Mod+Shift+Down  { focus-monitor-down; }
+    Mod+Shift+Up    { focus-monitor-up; }
+    Mod+Shift+Right { focus-monitor-right; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MULTI-MONITOR - Focus (Vim Keys)
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Shift+H { focus-monitor-left; }
+    Mod+Shift+J { focus-monitor-down; }
+    Mod+Shift+K { focus-monitor-up; }
+    Mod+Shift+L { focus-monitor-right; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MULTI-MONITOR - Move Windows (Arrow Keys)
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MULTI-MONITOR - Move Windows (Vim Keys)
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WORKSPACES - Navigation
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Page_Down { focus-workspace-down; }  // Next workspace
+    Mod+Page_Up   { focus-workspace-up; }    // Previous workspace
+    Mod+U         { focus-workspace-down; }  // Alternative binding
+    Mod+I         { focus-workspace-up; }    // Alternative binding
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WORKSPACES - Move Windows
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+    Mod+Ctrl+U         { move-column-to-workspace-down; }
+    Mod+Ctrl+I         { move-column-to-workspace-up; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WORKSPACES - Move Entire Workspace
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up   { move-workspace-up; }
+    Mod+Shift+U         { move-workspace-down; }
+    Mod+Shift+I         { move-workspace-up; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WORKSPACES - Mouse Wheel Navigation
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 {
+        move-column-to-workspace-down;
+    }
+
+    Mod+Ctrl+WheelScrollUp cooldown-ms=150 {
+        move-column-to-workspace-up;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  COLUMN NAVIGATION - Mouse Wheel
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+WheelScrollRight { focus-column-right; }
+    Mod+WheelScrollLeft  { focus-column-left; }
+
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    Mod+Shift+WheelScrollDown { focus-column-right; }
+    Mod+Shift+WheelScrollUp   { focus-column-left; }
+
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WORKSPACES - Direct Number Access
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WORKSPACES - Move Window to Specific Number
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  COLUMN STACKING (combine/separate windows)
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+BracketLeft  { consume-or-expel-window-left; }   // Stack with left
+    Mod+BracketRight { consume-or-expel-window-right; }  // Stack with right
+
+    Mod+Comma  { consume-window-into-column; }  // Merge into column stack
+    Mod+Period { expel-window-from-column; }    // Unstack from column
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  WINDOW SIZING & DISPLAY
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+R        { switch-preset-column-width; }  // Cycle preset widths
+    Mod+Shift+R  { switch-preset-window-height; } // Cycle preset heights
+    Mod+Ctrl+R   { reset-window-height; }         // Reset height to default
+
+    Mod+F        { maximize-column; }                    // Toggle maximize column
+    Mod+Shift+F  { fullscreen-window; }                  // Toggle fullscreen
+    Mod+Ctrl+F   { expand-column-to-available-width; }   // Expand to fill
+
+    Mod+C        { center-column; }          // Center current column
+    Mod+Ctrl+C   { center-visible-columns; } // Center all visible columns
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  MANUAL SIZING ADJUSTMENTS
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Minus { set-column-width "-10%"; }  // Decrease width by 10%
+    Mod+Equal { set-column-width "+10%"; }  // Increase width by 10%
+
+    Mod+Shift+Minus { set-window-height "-10%"; }  // Decrease height by 10%
+    Mod+Shift+Equal { set-window-height "+10%"; }  // Increase height by 10%
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  FLOATING WINDOWS
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+V       { toggle-window-floating; }                    // Float/unfloat
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }  // Switch modes
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  TABBED DISPLAY MODE
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+W { toggle-column-tabbed-display; }  // Tab stacked windows
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  SCREENSHOTS
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Print      { screenshot; }         // Interactive screenshot
+    Ctrl+Print { screenshot-screen; }  // Capture entire screen
+    Alt+Print  { screenshot-window; }  // Capture focused window
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  SYSTEM CONTROLS
+    // ─────────────────────────────────────────────────────────────────────
+    
+    Mod+Escape allow-inhibiting=false {
+        toggle-keyboard-shortcuts-inhibit;  // Allow/block app shortcuts
+    }
+
+    Mod+Shift+E { quit; }         // Exit niri
+    Ctrl+Alt+Delete { quit; }     // Alternative exit shortcut
+
+    Mod+Shift+P { power-off-monitors; }  // Turn off displays
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  END OF CONFIGURATION
+// ═══════════════════════════════════════════════════════════════════════════
