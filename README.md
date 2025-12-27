@@ -19,4 +19,5 @@ dotfiles/
 ```
 fish -- done \
 niri -- done \
-nvim -- done 
+nvim -- done \
+fuzzel -- done
