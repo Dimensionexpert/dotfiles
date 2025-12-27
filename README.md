@@ -17,6 +17,6 @@ dotfiles/
 └── nvim/
     └── init.lua
 ```
-fish -- done
-niri -- done
+fish -- done \
+niri -- done \
 nvim -- done 
