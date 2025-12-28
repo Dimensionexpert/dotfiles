@@ -38,9 +38,9 @@ input {
 // Built-in Laptop Display (eDP-1)
 output "eDP-1" {
     mode "2880x1800@90.00"  // High-res display at 90Hz
-    scale 1.5             // HiDPI scaling for readability
+    scale 1.5               // HiDPI scaling for readability
     transform "normal"      // No rotation
-    position x=1440 y=0     // Position relative to other displays
+    position x=0 y=0        // Position relative to other displays
 }
 
 // External Monitor (HDMI-A-1)
@@ -48,7 +48,7 @@ output "HDMI-A-1" {
     mode "1440x900@59.887"  // Standard HD resolution
     scale 1                 // No scaling
     transform "normal"      // No rotation
-    position x=0 y=0
+    position x=1920 y=0
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
