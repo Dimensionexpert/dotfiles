@@ -1,3 +1,4 @@
+```text
 dotfiles/
 ├── alacritty/
 │   ├── alacritty.toml
@@ -15,3 +16,4 @@ dotfiles/
 │   └── OriginalConfig.kdl
 └── nvim/
     └── init.lua
+```
