@@ -157,8 +157,8 @@ binds {
     //  APPLICATION LAUNCHERS
     // ─────────────────────────────────────────────────────────────────────
     
-    Mod+Return hotkey-overlay-title="Open a Terminal: alacritty " {
-        spawn "alacritty";
+    Mod+Return hotkey-overlay-title="Open a Terminal: Kitty " {
+        spawn "kitty";
     }
 
     Mod+space hotkey-overlay-title="Run an Application: fuzzel" {
