@@ -27,6 +27,8 @@ dotfiles/
 │       └── fish_prompt.fish
 ├── fuzzel/
 │   └── fuzzel.ini
+├── kitty/
+│   └── kitty.conf
 ├── niri/
 │   ├── config.kdl
 │   └── OriginalConfig.kdl
