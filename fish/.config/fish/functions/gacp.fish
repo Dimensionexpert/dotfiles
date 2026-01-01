@@ -4,7 +4,7 @@ function gacp
         return 1
     end
     
-    if test (count $argv) -ge 1
+    if test (count $argv) -gt 0
         # If message provided as argument
         ga; and gc $argv; and gp
     else
