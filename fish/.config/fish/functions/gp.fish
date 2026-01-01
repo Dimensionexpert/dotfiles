@@ -10,18 +10,23 @@ function gp
     end
 
     # No upstream set
-    read -P "Set upstream? (y/N): " answer
+    read -P "Set upstream? [y/N]: " answer
 
-    if test "$answer" = "y"
+    if contains "$answer"  y Y yes Yes YES 
         read -P "Remote (default: origin): " remote
         read -P "Branch: " branch
 
         if test -z "$remote"
             set remote origin
         end
+        if test -z "$branch"
+            set branch (git branch --show-current)
+        end
 
-        git push -u $remote $branch
+        git push -u "$remote" "$branch"
+  
     else
+        echo " Pushing without setting upstream "
         git push
     end
 end
