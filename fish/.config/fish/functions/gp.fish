@@ -26,7 +26,7 @@ function gp
         git push -u "$remote" "$branch"
   
     else
-        echo " Pushing without setting upstream "
+        echo "Pushing without setting upstream"
         git push
     end
 end
