@@ -4,5 +4,11 @@ function gacp
         return 1
     end
     
-    ga; and gc; and gp
+    if test (count $argv) -ge 1
+        # If message provided as argument
+        ga; and gc $argv; and gp
+    else
+        # If no argument, gc will prompt for message
+        ga; and gc; and gp
+    end
 end
