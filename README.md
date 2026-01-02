@@ -87,7 +87,7 @@ Commits your staged changes with a message. Pass the message as arguments, or it
 
 **Usage:**  
 ```fish
-gc your commit message here  # commit with inline message
+gc your commit message here   # commit with inline message
 gc                            # prompts you for a message
 ```
 
