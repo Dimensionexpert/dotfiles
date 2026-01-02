@@ -57,7 +57,7 @@ Everything is managed using GNU stow.
 Quick commands I use to daily to speed up my workflow.
 
 
-### `ga` - Git Add Made Simple
+### `ga` - Git Add 
 
 **What it does:**  
 Stages files for commit. If you don't specify any files, it stages everything. If you pass file names, it only stages those (and warns you if any don't exist).
@@ -80,5 +80,24 @@ ga README.md src/main.py
 ga nonexistent.txt
 # Output: ga: warning — 'nonexistent.txt' not found
 ```
+### `gc` - Quick Commits
 
+**What it does:**  
+Commits your staged changes with a message. Pass the message as arguments, or it'll prompt you for one.
+
+**Usage:**  
+```fish
+gc your commit message here  # commit with inline message
+gc                            # prompts you for a message
+```
+
+**Example:**  
+```fish
+# Write message directly
+gc fixed the bug in login form
+
+# Or get prompted
+gc
+# → Commit message: [you type here]
+```
 
