@@ -19,12 +19,10 @@ dotfiles/
 ├── README.md
 ├── install.sh
 ├── .gitignore
-
 ├── alacritty/
 │   ├── alacritty.toml
 │   └── themes/
 │       └── dank.toml
-
 ├── fish/
 │   ├── config.fish
 │   ├── conf.d/
@@ -41,16 +39,12 @@ dotfiles/
 │   │   ├── fish_prompt.fish
 │   │   └── fish_right_prompt.fish
 │   └── variables.fish
-
 ├── nvim/
 │   └── init.lua
-
 ├── fuzzel/
 │   └── fuzzel.ini
-
 ├── kitty/
 │   └── kitty.conf
-
 ├── niri/
 │   ├── config.kdl
 │   └── config.original.kdl
