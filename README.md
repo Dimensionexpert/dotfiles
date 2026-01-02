@@ -217,4 +217,22 @@ cv fish conf.d/aliases.fish
 # Opens: ~/.config/fish/conf.d/aliases.fish
 ```
 
+## TODO
+
+Features and improvements I want to add:
+
+### Functions to Enhance
+
+- [ ] **`cv` - Make it more flexible**
+  - Add flags to choose editor: `-c` for code, `-n` for nvim
+  - Add flag to set parent directory (not just `~/.config`)
+  - Make it work with any editor, not just VS Code
+
+- [ ] **`gp` - Add group push**
+  - Implement group function to push to multiple remotes at once
+
+### New Functions to Add
+
+- [ ] TBD as workflow needs evolve
+
 
