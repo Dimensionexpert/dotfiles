@@ -4,7 +4,7 @@ Personal configuration files for my system.
 Reseaon why I am making this :
 
 - Rebuild my envoirment fast.
-- track changes.
+- track changes over time.
 
 I made this lower the friction in my workflow not to optimize anything.
 
@@ -49,7 +49,36 @@ dotfiles/
 │   ├── config.kdl
 │   └── config.original.kdl
 ```
-Everything is managed using stow.
+Everything is managed using GNU stow.
 
+
+## Fish Functions
+
+Quick commands I use to daily to speed up my workflow.
+
+
+### `ga` - Git Add Made Simple
+
+**What it does:**  
+Stages files for commit. If you don't specify any files, it stages everything. If you pass file names, it only stages those (and warns you if any don't exist).
+
+**Usage:**  
+```fish
+ga                    # stages all changes
+ga file1.txt file2.js # stages specific files
+```
+
+**Example:**  
+```fish
+# Stage everything
+ga
+
+# Stage specific files
+ga README.md src/main.py
+
+# It'll warn you if a file doesn't exist
+ga nonexistent.txt
+# Output: ga: warning — 'nonexistent.txt' not found
+```
 
 
