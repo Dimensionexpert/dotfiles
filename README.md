@@ -16,24 +16,44 @@ The philosophy behind making this is to keep things simple. Make things more acc
 
 ```text
 dotfiles/
+├── README.md
+├── install.sh
+├── .gitignore
+
 ├── alacritty/
 │   ├── alacritty.toml
-│   └── dank-theme.toml
+│   └── themes/
+│       └── dank.toml
+
 ├── fish/
-│   ├── conf.d/
 │   ├── config.fish
-│   ├── fish_variables
-│   └── functions/
-│       └── fish_prompt.fish
+│   ├── conf.d/
+│   │   ├── aliases.fish
+│   │   ├── env.fish
+│   │   └── paths.fish
+│   ├── functions/
+│   │   ├── ga.fish
+│   │   ├── gc.fish
+│   │   ├── gp.fish
+│   │   ├── gacp.fish
+│   │   ├── gui.fish
+│   │   ├── cv.fish
+│   │   ├── fish_prompt.fish
+│   │   └── fish_right_prompt.fish
+│   └── variables.fish
+
+├── nvim/
+│   └── init.lua
+
 ├── fuzzel/
 │   └── fuzzel.ini
+
 ├── kitty/
 │   └── kitty.conf
+
 ├── niri/
 │   ├── config.kdl
-│   └── OriginalConfig.kdl
-└── nvim/
-    └── init.lua
+│   └── config.original.kdl
 ```
 Everything is managed using stow.
 
