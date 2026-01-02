@@ -101,3 +101,120 @@ gc
 # → Commit message: [you type here]
 ```
 
+### `gp` - Smart Push
+
+**What it does:**  
+Pushes your commits to remote. If upstream isn't set, it asks if you want to set it up (with sensible defaults).
+
+**Usage:**  
+```fish
+gp  # push to remote
+```
+
+**Example:**  
+```fish
+# If upstream is already set, just pushes
+gp
+
+# If not set, it prompts you
+gp
+# → Set upstream? [y/N]: y
+# → Remote (default: origin): [press enter for origin]
+# → Branch: [press enter to use current branch]
+
+# Or skip setting upstream
+gp
+# → Set upstream? [y/N]: n
+# → Pushing without setting upstream
+```
+
+### `gacp` - The Full Workflow
+
+**What it does:**  
+Runs the complete git workflow in one command: add, commit, and push. Takes a commit message as arguments or prompts you for one.
+
+**Usage:**  
+```fish
+gacp your commit message  # stages, commits, and pushes
+gacp                      # same but prompts for message
+```
+
+**Example:**  
+```fish
+# All in one go
+gacp updated documentation
+
+# Or get prompted for the message
+gacp
+# → Commit message: [you type here]
+# → [stages, commits, then pushes]
+
+# Won't work on a brand new repo with no commits
+gacp
+# → No commits yet. Create an initial commit before pushing.
+```
+
+### `gui` - Git Update Index Helper
+
+**What it does:**  
+Manages skip-worktree files. Useful when you want to keep a tracked file but ignore local changes (like config files with personal settings).
+
+**Usage:**  
+```fish
+gui -s <file>   # skip a file (ignore local changes)
+gui -ns <file>  # unskip a file (track changes again)
+gui -ls         # list all skipped files
+```
+
+**Example:**  
+```fish
+# Skip a config file you've customized locally
+gui -s config.json
+# → ✅ skipped: config.json
+
+# See what's currently skipped
+gui -ls
+# → S config.json
+
+# Start tracking it again
+gui -ns config.json
+# → ✅ unskipped: config.json
+
+# It'll warn you if something's off
+gui -s notreal.txt
+# → error: file does not exist
+```
+
+**Why use this?**  
+Better than `.gitignore` for files that need to be in the repo but you want to modify locally without committing those changes.
+
+### `cv` - Config VS Code Shortcut
+
+**What it does:**  
+Opens VS Code, with shortcuts for config files. No arguments opens VS Code normally. One argument opens that path. Two or more treats the first as a config folder and joins the rest as a path inside it.
+
+**Usage:**  
+```fish
+cv                    # opens VS Code
+cv ~/projects/myapp   # opens that folder
+cv nvim init.lua      # opens ~/.config/nvim/init.lua
+cv fish functions/    # opens ~/.config/fish/functions/
+```
+
+**Example:**  
+```fish
+# Just launch VS Code
+cv
+
+# Open a project
+cv ~/dev/my-website
+
+# Quick access to config files
+cv alacritty alacritty.toml
+# Opens: ~/.config/alacritty/alacritty.toml
+
+cv fish conf.d/aliases.fish
+# Opens: ~/.config/fish/conf.d/aliases.fish
+```
+
+
