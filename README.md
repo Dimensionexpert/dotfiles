@@ -161,7 +161,7 @@ Manages skip-worktree files. Useful when you want to keep a tracked file but ign
 
 **Usage:**  
 ```fish
-gui -s <file>   # skip a file (ignore local changes)
+gui -s  <file>  # skip a file (ignore local changes)
 gui -ns <file>  # unskip a file (track changes again)
 gui -ls         # list all skipped files
 ```
