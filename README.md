@@ -603,11 +603,12 @@ Features and improvements I want to add:
   - Add flag to set parent directory (not just `~/.config`).
   - Make it work with any editor, not just VS Code.
 
-- [ ] **`gp` - Add group push**
+- [✅] **`gp` - Add group push**
   - Implement group function to push to multiple remotes at once.
 
 ### New Functions to Add
 
 - [ ] TBD as workflow needs evolve.
+- [ ] Work on Adits suggestions.
 
 
