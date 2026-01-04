@@ -34,6 +34,7 @@ dotfiles/
 │   │   ├── gc.fish
 │   │   ├── gp.fish
 │   │   ├── gacp.fish
+│   │   ├── grp.fish 
 │   │   ├── gui.fish
 │   │   ├── cv.fish
 │   │   ├── fish_prompt.fish
