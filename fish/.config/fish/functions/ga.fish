@@ -1,23 +1,59 @@
 function ga
+    set GROUP_DIR ~/.groups
+
     if test (count $argv) -eq 0
-        echo "ga: staging all changes"
-        git add .
-        return
+        echo "usage:"
+        echo "  ga <files...>           - stage specific files"
+        echo "  ga -al                  - stage all changes"
+        echo "  ga -ex <group>          - stage all except group"
+        return 1
     end
 
-    set valid_files
+    # Check if first argument is a flag
+    if string match -q -- "-*" $argv[1]
+        set flag $argv[1]
 
-    for file in $argv
-        if test -e "$file"
-            set valid_files $valid_files $file
-        else
-            echo "ga: warning — '$file' not found"
+        switch $flag
+            case "-al"
+                git add .
+                echo "ga: staged all changes"
+                return
+
+            case "-ex"
+                if test (count $argv) -lt 2
+                    echo "ga: missing group name"
+                    return 1
+                end
+
+                set grpname $argv[2]
+                set grpfile $GROUP_DIR/$grpname
+
+                if not test -f $grpfile
+                    echo "ga: group '$grpname' does not exist"
+                    return 1
+                end
+
+                git status --porcelain \
+                | awk '{print $2}' \
+                | grep -v -F -f $grpfile \
+                | xargs git add
+
+                if test $status -ne 0
+                    echo "ga: all files are excluded or no changes to stage"
+                    return 1
+                end
+
+                echo "ga: staged all files except group '$grpname'"
+                return
+
+            case '*'
+                echo "ga: unknown flag '$flag'"
+                echo "fuck i am out :|. Hand Your system to trusted adult and get your head checked RETARD!"
+                return 1
         end
-    end
-
-    if test (count $valid_files) -gt 0
-        git add $valid_files
     else
-        echo "ga: nothing to add"
+        # Not a flag, treat as files
+        git add $argv
+        echo "ga: staged" (count $argv) "file(s)"
     end
 end
