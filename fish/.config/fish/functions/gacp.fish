@@ -26,3 +26,4 @@ function gacp
         ga -al; and gc; and gp
     end
 end
+# W function I am proud of this function. 

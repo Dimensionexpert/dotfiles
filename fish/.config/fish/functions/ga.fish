@@ -48,7 +48,7 @@ function ga
 
             case '*'
                 echo "ga: unknown flag '$flag'"
-                echo "fuck i am out :|. Hand Your system to trusted adult and get your head checked RETARD!"
+                echo "fuck, I am out :|. Hand Your system to trusted adult and get your head checked RETARD!"
                 return 1
         end
     else
