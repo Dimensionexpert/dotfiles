@@ -23,7 +23,7 @@ input {
     // Mouse Settings
     mouse { }
     
-    // Trackpoint Settings (ThinkPad-style pointer)
+    // Trackpoint Settings 
     trackpoint { }
 
     // Focus Behavior
@@ -91,6 +91,7 @@ layout {
 
     // Window Drop Shadows
     shadow {
+        off
         softness 30             // Blur radius for soft edges
         spread 5                // Shadow size expansion
         offset x=0 y=5          // Shadow position (5px down)
