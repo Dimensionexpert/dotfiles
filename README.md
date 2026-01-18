@@ -12,6 +12,45 @@ I made this lower the friction in my workflow not to optimize anything.
 
 The philosophy behind making this is to keep things simple. Make things more accessible without stripping the core. Reducing the reduandant typing of commands.
 
+## Installation
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- [Fish Shell](https://fishshell.com/) - Your shell
+- [GNU Stow](https://www.gnu.org/software/stow/) - Symlink manager
+- [Git](https://git-scm.com/) - Version control
+
+### Setup
+
+1. **Clone the repository**
+   ```fish
+   git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
+   cd ~/dotfiles
+   ```
+
+2. **Use Stow to symlink configs**
+   ```fish
+   # Symlink all configs
+   stow */
+   
+   # Or symlink specific configs
+   stow fish
+   stow nvim
+   stow alacritty
+   ```
+
+3. **Reload your shell**
+   ```fish
+   exec fish
+   ```
+
+### Platform Notes
+
+- **macOS & Linux**: Both use `~/.config/` for configurations, so the setup is identical.
+- Stow will create symlinks from `~/dotfiles/<config>/` to `~/.config/<config>/`.
+
 ## Structure 
 
 ```text
@@ -610,5 +649,3 @@ Features and improvements I want to add:
 
 - [ ] TBD as workflow needs evolve.
 - [ ] Work on Adits suggestions.
-
-
