@@ -648,4 +648,4 @@ Features and improvements I want to add:
 ### New Functions to Add
 
 - [ ] TBD as workflow needs evolve.
-- [ ] Work on Adits suggestions.
+- [ ] Work on Adits suggestions.a

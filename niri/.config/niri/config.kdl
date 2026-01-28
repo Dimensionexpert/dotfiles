@@ -119,6 +119,7 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 animations { }  // Window transition animations
 
+
 // ═══════════════════════════════════════════════════════════════════════════
 //  WINDOW RULES (per-application behavior)
 // ═══════════════════════════════════════════════════════════════════════════
